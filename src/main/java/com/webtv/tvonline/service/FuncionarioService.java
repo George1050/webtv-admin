@@ -21,7 +21,7 @@ public class FuncionarioService {
     }
 
     public Funcionario getOne(Long id){
-        return repository.getOne(id);
+        return repository.findById(id).get();
     }
 
     public Funcionario save(Funcionario funcionario){

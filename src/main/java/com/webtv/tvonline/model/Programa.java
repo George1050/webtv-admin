@@ -25,16 +25,16 @@ public class Programa {
     private String uriLogo;
 
     //Relação n/n de programa com apresentador, um programa -> n apresentadores
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "programa_funcionario",
             joinColumns = @JoinColumn(name = "programa_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "funcionario_id")
     )
-    private List<Funcionario> equpe;
+    private List<Funcionario> equipe;
 
 
-    @OneToMany(mappedBy = "programa", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "programa", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Video> videos;
 

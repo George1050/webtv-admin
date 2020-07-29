@@ -21,24 +21,23 @@ public class VideoController {
         this.videoService = videoService;
     }
 
-    @GetMapping(value = "/video")
+    @GetMapping(path = "/video")
     public List<Video> findALl(){
         return videoService.findALl();
     }
 
-    @GetMapping(value = "/video/{titulo}")
+    @GetMapping(path = "/video/{titulo}")
     public Video findByTitulo(@PathVariable(name = "titulo") String titulo){
         return videoService.findByTitulo(titulo);
     }
 
-    @PostMapping(value = "/video")
+    @PostMapping(path = "/video")
     public Video create(@RequestBody Video video, HttpServletResponse response){
         response.setStatus(201);
-        video.setData(LocalDate.now());
         return videoService.save(video);
     }
 
-    @DeleteMapping(value = "/video/{id}")
+    @DeleteMapping(path = "/video/{id}")
     public void delete(@PathVariable(name = "id") Long id){
         videoService.delete(id);
     }

@@ -4,11 +4,9 @@ import {
     Datagrid,
     TextField,
     BooleanField,
-    UrlField,
+    NumberInput,
     EditButton,
     BooleanInput,
-    ReferenceInput,
-    SelectInput
 } from "react-admin";
 import { Create, Edit, SimpleForm, TextInput } from "react-admin";
 
@@ -17,12 +15,8 @@ export const FuncionarioCreate = props =>(
         <SimpleForm>
             <TextInput source="nome" />
             <TextInput source="contato" />
-            <BooleanInput source="status" />
-            <ReferenceInput label="Cargo" source="cargo_id" reference="cargo">
-                <SelectInput
-                    optionText="nome"
-                    optionValue="id"/>
-            </ReferenceInput>
+            <BooleanInput label="Status" source="status" />
+            <TextInput source="cargo.nome" label="Cargo"/>
         </SimpleForm>
     </Create>
 );
@@ -38,4 +32,14 @@ export const FuncionarioList = props => (
         </Datagrid>
     </List>
 );
+export const FuncionarioEdit = props => (
+    <Edit {...props}>
+        <SimpleForm>
+            <TextInput source="nome" />
+            <NumberInput source="contato" />
+            <BooleanInput source="status" />
+            <TextInput source="cargo.nome"/>
+        </SimpleForm>
+    </Edit>
+)
 

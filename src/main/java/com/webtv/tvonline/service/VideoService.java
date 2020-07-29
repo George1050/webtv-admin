@@ -25,7 +25,7 @@ public class VideoService {
     }
 
     public Video getOne(Long id){
-        return videoRepository.getOne(id);
+        return videoRepository.findById(id).get();
     }
 
     public Video findByTitulo(String titulo){

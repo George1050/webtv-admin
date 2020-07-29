@@ -21,6 +21,10 @@ public class CargoService {
         return cargoRepository.findAll();
     }
 
+    public Cargo getOne(Long id){
+        return cargoRepository.findById(id).get();
+    }
+
     public void save(Cargo cargo){
         cargoRepository.save(cargo);
     }

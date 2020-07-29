@@ -1,14 +1,30 @@
 import React from "react";
-import { List, Datagrid, TextField, UrlField, ArrayField, SingleFieldList, ChipField } from "react-admin";
+import {
+    List,
+    Datagrid,
+    TextField,
+    UrlField,
+    ArrayField,
+    SingleFieldList,
+    ChipField,
+    DateInput,
+    BooleanField
+} from "react-admin";
 import {
     Create,
     Edit,
+    Show,
     EditButton,
     SimpleForm,
+    NumberInput,
+    BooleanInput,
+    DateField,
+    SimpleShowLayout,
+    NumberField,
     TextInput,
-    SelectInput,
-    ReferenceInput,
+    ImageField,
     ArrayInput,
+    RichTextField,
     SimpleFormIterator
 } from "react-admin";
 import RichTextInput from 'ra-input-rich-text';
@@ -17,15 +33,14 @@ export const ProgramaCreate = props =>(
   <Create {...props}>
       <SimpleForm>
           <TextInput source="titulo" />
-          <RichTextInput source="descricao" />
-          <TextInput source="uriLogo" />
-          <ArrayInput source="equipe">
+          <TextInput source="descricao" />
+          <TextInput label="Url da Logo do Programa" source="uriLogo" />
+          <ArrayInput label="Adicionar membro a Equipe:" source="equipe">
               <SimpleFormIterator>
-                  <ReferenceInput label="Equipe" source="funcionario_id" reference="funcionario">
-                      <SelectInput
-                          optionText={record => `${record.cargo.nome}, ${record.nome}`}
-                          optionValue="id"/>
-                  </ReferenceInput>
+                  <TextInput label="Nome" source="nome" />
+                  <NumberInput label="Contato" source="contato" />
+                  <BooleanInput label="Status" source="status" />
+                  <TextInput label="Cargo" source="cargo.nome" />
               </SimpleFormIterator>
           </ArrayInput>
       </SimpleForm>
@@ -34,12 +49,12 @@ export const ProgramaCreate = props =>(
 
 export const ProgramaList = props => (
     <List {...props}>
-        <Datagrid>
+        <Datagrid rowClick="show">
             <TextField source="id" />
+            <ImageField label="Logo do Programa" source="uriLogo" />
             <TextField source="titulo" />
             <TextField source="descricao" />
-            <UrlField source="uriLogo" />
-            <ArrayField source="equipw" label="Equipe">
+            <ArrayField source="equipe" label="Equipe">
                 <SingleFieldList>
                     <ChipField source="cargo.nome"/>
                 </SingleFieldList>
@@ -49,19 +64,56 @@ export const ProgramaList = props => (
     </List>
 );
 
+export const ProgramaShow = props => (
+    <Show {...props}>
+            <SimpleShowLayout>
+                <ImageField source="uriLogo" />
+                <TextField source="titulo" />
+                <RichTextField source="descricao" />
+                <ArrayField source="equipe">
+                    <Datagrid>
+                        <TextField source="id" />
+                        <TextField source="nome" />
+                        <TextField source="contato" />
+                        <BooleanField source="status" />
+                        <NumberField source="cargo.id" />
+                    </Datagrid>
+                </ArrayField>
+                <ArrayField source="videos">
+                    <Datagrid>
+                        <TextField source="id" />
+                        <TextField source="titulo" />
+                        <TextField source="urlVideo" />
+                        <DateField source="data" />
+                    </Datagrid>
+                </ArrayField>
+            </SimpleShowLayout>
+    </Show>
+)
+
 export const ProgramaEdit = props => (
     <Edit {...props}>
         <SimpleForm>
-            <TextInput source="id" />
+            <TextField disable source="id"/>
             <TextInput source="titulo" />
             <RichTextInput source="descricao" />
-            <TextInput source="uriLogo" />
-            <ArrayField source="equipe" label="Equipe">
-                <SingleFieldList>
-                    <ChipField source="nome" optionValue={record => `${record.cargo.nome}, ${record.nome}`}/>
-                </SingleFieldList>
-            </ArrayField>
-
+            <TextInput label="Url da Logo do Programa" source="uriLogo" />
+            <ArrayInput source="equipe">
+                <SimpleFormIterator>
+                    <TextInput label="Nome" source="nome" />
+                    <NumberInput label="Contato" source="contato" />
+                    <BooleanInput label="Status" source="status" />
+                    <TextInput label="Cargo" source="cargo.nome" />
+                </SimpleFormIterator>
+            </ArrayInput>
+            <ArrayInput source="videos">
+                <SimpleFormIterator>
+                    <TextInput label="Titulo do Video" source="titulo"/>
+                    <TextInput label="Url do Video" source="urlVideo" />
+                    <DateInput label="Data de Envio" source="data"/>
+                    <TextField label="Id do Programa"  disable source="programa.id" value={record => record.id}/>
+                </SimpleFormIterator>
+            </ArrayInput>
         </SimpleForm>
     </Edit>
 )

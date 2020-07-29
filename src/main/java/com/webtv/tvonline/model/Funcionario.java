@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,14 +15,12 @@ public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotEmpty(message = "Capo não pode estar vazio!")
+
     private String nome;
-    @NotEmpty(message = "Capo não pode estar vazio!")
     private String contato;
-    @NotNull(message = "Capo não pode estar vazio!")
     private Boolean status;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cargo_id")
     private Cargo cargo;
 

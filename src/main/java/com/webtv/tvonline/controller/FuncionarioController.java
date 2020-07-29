@@ -22,12 +22,17 @@ public class FuncionarioController {
     }
 
     @GetMapping(value = "/funcionario/{id}")
-    public Funcionario getOne(@PathVariable(name = "id")Long id){
+    public Funcionario getOne(@PathVariable(name = "id") Long id){
         return service.getOne(id);
     }
 
     @PostMapping(value = "/funcionario")
     public Funcionario create(@RequestBody Funcionario funcionario){
+        return service.save(funcionario);
+    }
+
+    @PutMapping(value = "/funcionario/{id}")
+    public Funcionario update(@PathVariable Long id,@RequestBody Funcionario funcionario){
         return service.save(funcionario);
     }
 
