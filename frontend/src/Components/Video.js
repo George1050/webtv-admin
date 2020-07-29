@@ -4,10 +4,9 @@ import {
     Create,
     Edit,
     SimpleForm,
-    ImageField,
+    UrlField,
     DateInput,
     DateField,
-    ArrayInput,
     TextInput,
     Datagrid,
     TextField,
@@ -26,13 +25,24 @@ export const VideoCreate = props => (
             </ReferenceInput>
         </SimpleForm>
     </Create>
+);
+
+export const VideoEdit = props => (
+    <Edit {...props}>
+        <SimpleForm>
+            <TextInput source="titulo"/>
+            <TextInput label="Url do Video" source="urlVideo" />
+            <DateInput source="data"/>
+            <TextField disable label="Programa" source="programa.titulo"/>
+        </SimpleForm>
+    </Edit>
 )
 
 export const VideoList = props => (
     <List {...props}>
         <Datagrid>
             <TextField source="titulo" />
-            <ImageField source="urlVideo" />
+            <UrlField source="urlVideo" />
             <DateField source="data" />
             <EditButton />
         </Datagrid>

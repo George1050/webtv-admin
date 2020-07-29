@@ -67,7 +67,7 @@ export const ProgramaList = props => (
 export const ProgramaShow = props => (
     <Show {...props}>
             <SimpleShowLayout>
-                <ImageField source="uriLogo" />
+                <ImageField label=" " source="uriLogo" />
                 <TextField source="titulo" />
                 <RichTextField source="descricao" />
                 <ArrayField source="equipe">
@@ -83,7 +83,7 @@ export const ProgramaShow = props => (
                     <Datagrid>
                         <TextField source="id" />
                         <TextField source="titulo" />
-                        <TextField source="urlVideo" />
+                        <UrlField source="urlVideo" />
                         <DateField source="data" />
                     </Datagrid>
                 </ArrayField>
